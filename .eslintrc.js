@@ -1,19 +1,19 @@
 module.exports = {
   env: {
-    es6: true,
+    es2021: true,
     node: true,
-    jest: true,
   },
   extends: [
     'plugin:react/recommended',
     'airbnb',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'plugin:import/typescript',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: './tsconfig.json',
     ecmaFeatures: {
       jsx: true,
     },
@@ -22,19 +22,27 @@ module.exports = {
   },
   plugins: [
     'react',
-    'react-hooks',
+    '@typescript-eslint',
     '@typescript-eslint',
     'prettier',
-
   ],
   rules: {
-    'prettier/prettier': 'error',
-    'react/display-name': 'off',
-    'react/prop-types': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.tsx'] }],
+    'import/prefer-default-export': 'off',
+    camelcase: 'off',
+    'import/extensions': 'off',
+
   },
+
   settings: {
-    react: {
-      version: 'detect',
+
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        moduleDirectory: ['node_modules', 'src/'],
+        paths: ['src'],
+      },
+      typescript: {},
     },
   },
 };
