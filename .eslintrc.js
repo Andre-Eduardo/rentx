@@ -11,6 +11,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
+
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -31,6 +32,14 @@ module.exports = {
     'import/prefer-default-export': 'off',
     camelcase: 'off',
     'import/extensions': 'off',
+    'react/state-in-constructor': 'off',
+    'react/static-property-placement': 'off',
+    'react/jsx-props-no-spreading': 'off',
+
+    'no-param-reassign': 'off',
+    'no-console': 'off',
+    'react/style-prop-object': 'off',
+    'react/prop-types': 0,
 
   },
 
