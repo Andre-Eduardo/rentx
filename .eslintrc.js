@@ -40,6 +40,7 @@ module.exports = {
     'no-console': 'off',
     'react/style-prop-object': 'off',
     'react/prop-types': 0,
+    'react/require-default-props': 'off',
 
   },
 
