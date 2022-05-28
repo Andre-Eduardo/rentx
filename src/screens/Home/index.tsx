@@ -14,20 +14,21 @@ import {
 } from './styles';
 import api from '../../services/api';
 import { CarDTO } from '../../dtos/CarDTO';
+import { Load } from '../../components/Load';
 
 export function Home() {
   const [cars, setCars] = useState<CarDTO[]>([]);
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
-  const carData = {
-    brand: 'Audi',
-    name: 'RS 5 Coupe',
-    rent: {
-      period: 'AO DIA',
-      price: 120,
-    },
-    thumbnail: 'https://www.pngmart.com/files/1/Audi-RS5-Red-PNG.png',
-  };
+  // const carData = {
+  //   brand: 'Audi',
+  //   name: 'RS 5 Coupe',
+  //   rent: {
+  //     period: 'AO DIA',
+  //     price: 120,
+  //   },
+  //   thumbnail: 'https://www.pngmart.com/files/1/Audi-RS5-Red-PNG.png',
+  // };
 
   function handleCarDetails() {
     navigation.navigate('CarDetails');
@@ -62,14 +63,16 @@ export function Home() {
           </TotalCars>
         </HeaderContent>
       </Header>
-
-      <CarList
-        data={cars}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Car data={item} onPress={() => handleCarDetails()} />
+      {loading ? <Load />
+        : (
+          <CarList
+            data={cars}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <Car data={item} onPress={() => handleCarDetails()} />
+            )}
+          />
         )}
-      />
 
     </Container>
   );

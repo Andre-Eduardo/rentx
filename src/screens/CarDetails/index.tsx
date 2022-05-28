@@ -34,10 +34,14 @@ export function CarDetails() {
     navigation.navigate('Scheduling');
   }
 
+  function handleBack() {
+    navigation.goBack();
+  }
+
   return (
     <Container>
       <Header>
-        <BackButton onPress={() => { }} />
+        <BackButton onPress={() => handleBack()} />
       </Header>
       <CarImages>
         <ImageSlider imagesUrl={['https://www.pngmart.com/files/1/Audi-RS5-Red-PNG.png']} />

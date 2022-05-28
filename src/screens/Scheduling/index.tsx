@@ -29,14 +29,16 @@ export function Scheduling() {
   function handleConfirmRental() {
     navigation.navigate('SchedulingDetails');
   }
-
+  function handleBack() {
+    navigation.goBack();
+  }
   return (
     <Container>
       <StatusBar style="light" translucent backgroundColor="transparent" />
       <Header>
         <BackButton
           color={theme.colors.shape}
-          onPress={() => { }}
+          onPress={() => handleBack()}
         />
 
         <Title>
