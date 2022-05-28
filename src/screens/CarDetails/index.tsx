@@ -27,6 +27,7 @@ import {
 } from './styles';
 import { Button } from '../../components/Button';
 import { CarDTO } from '../../dtos/CarDTO';
+import { getAccessoryIcon } from '../../utils/getAccessoryicon';
 
 interface Params {
   car: CarDTO;
@@ -75,7 +76,7 @@ export function CarDetails() {
               <Accessory
                 key={accessory.type}
                 name={accessory.name}
-                icon={SpeedSvg}
+                icon={getAccessoryIcon(accessory.type)}
               />
             ))
           }
