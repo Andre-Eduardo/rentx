@@ -73,17 +73,23 @@ export function Scheduling() {
 
     setLastSelectedDate(end);
     const interval = generateInterval(start, end);
+
     setMarkedDates(interval);
 
-    const firstDate = Object.keys(interval)[0];
-    const lastDate = Object.keys(interval)[Object.keys(interval).length - 1];
+    const firstDate = parseISO(Object.keys(interval)[0]);
+    const lastDate = parseISO(
+      Object.keys(interval)[Object.keys(interval).length - 1],
+    );
 
     setRentalPeriod({
-      startFormatted: format(getPlatformDate(new Date(firstDate)), 'dd/MM/yyyy'),
+      startFormatted: format(
+        getPlatformDate(new Date(firstDate)),
+        'dd/MM/yyyy',
+      ),
       endFormatted: format(getPlatformDate(new Date(lastDate)), 'dd/MM/yyyy'),
     });
-    console.log(markedDates);
   }
+
   return (
     <Container>
       <StatusBar style="light" translucent backgroundColor="transparent" />
