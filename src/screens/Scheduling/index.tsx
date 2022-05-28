@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTheme } from 'styled-components';
 import { StatusBar } from 'expo-status-bar';
 import { useNavigation } from '@react-navigation/native';
+import { format, parseISO } from 'date-fns';
 import { BackButton } from '../../components/BackButton';
-
 import ArrowSvg from '../../assets/arrow.svg';
 
 import {
@@ -19,9 +19,26 @@ import {
 } from './styles';
 
 import { Button } from '../../components/Button';
-import { Calendar } from '../../components/Calendar';
+import { Calendar, DayProps, MarkedDateProps } from '../../components/Calendar';
+import { generateInterval } from '../../components/Calendar/generateInterval';
+import { getPlatformDate } from '../../utils/getPlatformDate';
+
+interface RentalPeriod {
+  startFormatted: string;
+  endFormatted: string;
+}
 
 export function Scheduling() {
+  const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
+    {} as DayProps,
+  );
+  const [markedDates, setMarkedDates] = useState<MarkedDateProps>(
+    {} as MarkedDateProps,
+  );
+  const [rentalPeriod, setRentalPeriod] = useState<RentalPeriod>(
+    {} as RentalPeriod,
+  );
+
   const theme = useTheme();
 
   const navigation = useNavigation();
@@ -31,6 +48,34 @@ export function Scheduling() {
   }
   function handleBack() {
     navigation.goBack();
+  }
+
+  function handleChangeDate(date: DayProps) {
+    let start = !lastSelectedDate.timestamp ? date : lastSelectedDate;
+    let end = date;
+
+    if (start.timestamp > end.timestamp) {
+      start = end;
+      end = start;
+    }
+
+    setLastSelectedDate(end);
+    const interval = generateInterval(start, end);
+
+    setMarkedDates(interval);
+
+    const firstDate = parseISO(Object.keys(interval)[0]);
+    const lastDate = parseISO(
+      Object.keys(interval)[Object.keys(interval).length - 1],
+    );
+
+    setRentalPeriod({
+      startFormatted: format(
+        getPlatformDate(new Date(firstDate)),
+        'dd/MM/yyyy',
+      ),
+      endFormatted: format(getPlatformDate(new Date(lastDate)), 'dd/MM/yyyy'),
+    });
   }
   return (
     <Container>
@@ -64,7 +109,7 @@ export function Scheduling() {
       </Header>
 
       <Content>
-        <Calendar />
+        <Calendar markedDate={markedDates} onDayPress={handleChangeDate} />
       </Content>
 
       <Footer>
