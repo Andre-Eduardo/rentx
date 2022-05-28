@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTheme } from 'styled-components';
 import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { format, parseISO } from 'date-fns';
 import { BackButton } from '../../components/BackButton';
 import ArrowSvg from '../../assets/arrow.svg';
@@ -24,6 +24,7 @@ import {
 } from '../../components/Calendar';
 
 import { getPlatformDate } from '../../utils/getPlatformDate';
+import { CarDTO } from '../../dtos/CarDTO';
 
 interface RentalPeriod {
   // start: number;
@@ -31,7 +32,9 @@ interface RentalPeriod {
   // end: number;
   endFormatted: string;
 }
-
+interface Params {
+  car: CarDTO;
+}
 export function Scheduling() {
   const [lastSelectedDate, setLastSelectedDate] = useState<DayProps>(
     {} as DayProps,
@@ -46,6 +49,8 @@ export function Scheduling() {
   const theme = useTheme();
 
   const navigation = useNavigation();
+  const route = useRoute();
+  const { car } = route.params as Params;
 
   function handleConfirmRentalDetails() {
     navigation.navigate('SchedulingDetails', {
