@@ -182,7 +182,13 @@ export function SchedulingDetails() {
         </RentalPrice>
       </Content>
       <Footer>
-        <Button title="Alugar agora" color={theme.colors.success} onPress={() => handleConfirmRental()} />
+        <Button
+          title="Alugar agora"
+          color={theme.colors.success}
+          onPress={handleConfirmRental}
+          enabled={!loading}
+          loading={loading}
+        />
       </Footer>
     </Container>
   );
