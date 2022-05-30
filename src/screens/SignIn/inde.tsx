@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { Button } from '../../components/Button';
+import { Input } from '../../components/Input';
 
 import {
   Container,
@@ -29,7 +30,9 @@ export function SignIn() {
           uma experiência incrível.
         </SubTitle>
       </Header>
-
+      <Form>
+        <Input />
+      </Form>
       <Footer>
         <Button
           title="Login"
