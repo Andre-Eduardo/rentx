@@ -1,29 +1,35 @@
 /* eslint-disable react/jsx-no-bind */
-import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { useTheme } from 'styled-components';
 import {
-  KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, Alert,
+  Alert,
+  StatusBar,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
-import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
+import * as Yup from 'yup';
+import { useTheme } from 'styled-components';
+
+import { useAuth } from '../../hooks/auth';
+
 import { Button } from '../../components/Button';
 import { Input } from '../../components/Input';
 import { PasswordInput } from '../../components/PasswordInput';
+
 import {
-  Container,
-  Header,
-  Title,
-  SubTitle,
-  Footer,
-  Form,
+  Container, Header, Title, SubTitle, Form, Footer,
 } from './styles';
 
 export function SignIn() {
-  const theme = useTheme();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const navigation = useNavigation();
+  const { signIn } = useAuth();
+
+  const theme = useTheme();
+
   async function handleSignIn() {
     try {
       const schema = Yup.object().shape({
@@ -34,11 +40,16 @@ export function SignIn() {
       });
 
       await schema.validate({ email, password });
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        Alert.alert('Opa', error.message);
+
+      signIn({ email, password });
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        Alert.alert('Opa', err.message);
       } else {
-        Alert.alert('Erro na Autenticação', error.message);
+        Alert.alert(
+          'Erro na autenticação',
+          'Ocorreu um erro ao fazer login, verifique as credenciais!',
+        );
       }
     }
   }
@@ -48,18 +59,19 @@ export function SignIn() {
   }
 
   return (
-    <KeyboardAvoidingView
-      behavior="position"
-      enabled
-    >
+    <KeyboardAvoidingView behavior="position" enabled>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Container>
-          <StatusBar style="dark" translucent backgroundColor="transparent" />
+          <StatusBar
+            barStyle="dark-content"
+            backgroundColor="transparent"
+            translucent
+          />
           <Header>
             <Title>
               Estamos
               {'\n'}
-              quase la
+              quase lá.
             </Title>
             <SubTitle>
               Faça seu login para começar
@@ -67,6 +79,7 @@ export function SignIn() {
               uma experiência incrível.
             </SubTitle>
           </Header>
+
           <Form>
             <Input
               iconName="mail"
@@ -84,6 +97,7 @@ export function SignIn() {
               value={password}
             />
           </Form>
+
           <Footer>
             <Button
               title="Login"
@@ -94,13 +108,12 @@ export function SignIn() {
             <Button
               title="Criar conta gratuita"
               color={theme.colors.background_secondary}
+              light
               onPress={handleNewAccount}
               enabled
-              light
               loading={false}
             />
           </Footer>
-
         </Container>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
