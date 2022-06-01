@@ -4,11 +4,6 @@ import { Accessory } from '../../components/Accessory';
 import { BackButton } from '../../components/BackButton';
 import { ImageSlider } from '../../components/ImageSlider';
 
-import SpeedSvg from '../../assets/speed.svg';
-import AccelerationSvg from '../../assets/acceleration.svg';
-import ForceSvg from '../../assets/force.svg';
-import GasolineSvg from '../../assets/gasoline.svg';
-
 import {
   Container,
   Header,
@@ -37,6 +32,7 @@ export function CarDetails() {
   const navigation = useNavigation();
   const route = useRoute();
   const { car } = route.params as Params;
+
   function handleConfirmRental() {
     navigation.navigate('Scheduling', {
       car,
@@ -64,10 +60,10 @@ export function CarDetails() {
           </Description>
 
           <Rent>
-            <Period>{car.rent.period}</Period>
+            <Period>{car.period}</Period>
             <Price>
               R$
-              {car.rent.price}
+              {car.price}
 
             </Price>
           </Rent>

@@ -35,9 +35,9 @@ export function Car({
           <Rent>
             <Period>
               {' '}
-              {data.rent.period}
+              {data.period}
             </Period>
-            <Price>{`R$ ${data.rent.price}`}</Price>
+            <Price>{`R$ ${data.price}`}</Price>
           </Rent>
 
           <Type>
