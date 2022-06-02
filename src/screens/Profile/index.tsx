@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind */
 import { Feather } from '@expo/vector-icons';
 import { useNetInfo } from '@react-native-community/netinfo';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
@@ -31,6 +32,11 @@ import {
   PhotoContainer,
   Section,
 } from './styles';
+
+interface imgProps extends ImagePicker.ImageInfo {
+  cancelled: boolean
+  uri: string;
+}
 
 export function Profile() {
   const { user, signOut, updatedUser } = useAuth();
@@ -66,7 +72,7 @@ export function Profile() {
       allowsEditing: true,
       aspect: [4, 4],
       quality: 1,
-    });
+    }) as imgProps;
 
     if (result.cancelled) {
       return;
@@ -78,6 +84,7 @@ export function Profile() {
   }
 
   async function handleProfileUpdate() {
+    console.log('update');
     try {
       const schema = Yup.object().shape({
         driverLicense: Yup.string()

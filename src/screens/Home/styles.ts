@@ -34,7 +34,7 @@ export const CarList = styled(FlatList as new () => FlatList<CarDTO>).attrs({
   },
   showsVerticalScrollIndicator: false,
 })``;
-export const MyCarsButton = styled(RectButton)`
+export const MyCarsButton = styled.TouchableOpacity`
 width:60px ;
 height:60px ;
 
