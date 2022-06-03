@@ -133,6 +133,7 @@ export function Profile() {
 
   async function handleSignOut() {
     Alert.alert(
+
       'Tem certeza?',
       'Se você sair, irá precisar de internet para conectar-se novamente.',
       [
