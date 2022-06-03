@@ -49,7 +49,7 @@ export const Photo = styled.Image`
   border-radius: 90px;
 `;
 
-export const PhotoButton = styled.TouchableOpacity`
+export const PhotoButton = styled(RectButton)`
   width: 40px;
   height: 40px;
   background-color: ${({ theme }) => theme.colors.main};

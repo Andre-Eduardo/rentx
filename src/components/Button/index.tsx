@@ -5,7 +5,7 @@ import { useTheme } from 'styled-components';
 
 import { Container, Title } from './styles';
 
-interface Props extends TouchableOpacityProps {
+interface Props extends RectButtonProps {
   title: string;
   color?: string;
   enabled?: boolean;
